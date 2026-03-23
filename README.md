@@ -1,16 +1,144 @@
-# React + Vite
+# 💳 PayShop Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack e-commerce frontend that simulates a real-world payment flow inspired by Razorpay's architecture. Built with React, Vite, and Tailwind CSS.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Live Demo
 
-## React Compiler
+> Frontend: [https://payment-practice-frontend.vercel.app](https://payment-practice-frontend.vercel.app)
+> Backend API: [https://payment-practice-backend.onrender.com](https://payment-practice-backend.onrender.com)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Framework** — React 18
+- **Build Tool** — Vite
+- **Styling** — Tailwind CSS
+- **Routing** — React Router DOM
+- **HTTP Client** — Axios
+- **State Management** — React Context API
+
+---
+
+## ✨ Features
+
+- ✅ User Signup & Login
+- ✅ JWT token stored in localStorage
+- ✅ Protected routes (redirect to login if not authenticated)
+- ✅ Role-based access (Admin route protected)
+- ✅ Product listing with emoji display
+- ✅ Add to cart with quantity management
+- ✅ Cart count badge on navbar
+- ✅ Active page highlight on navbar
+- ✅ Simulated payment modal (Razorpay pattern)
+- ✅ Payment success and failure simulation
+- ✅ Order history page
+- ✅ Admin panel — view all orders from all users
+- ✅ Fully responsive UI
+
+---
+
+## 💡 Payment Flow (Razorpay Pattern)
+
+```
+User clicks Checkout
+        ↓
+POST /orders → Backend creates order
+               Returns orderId + paymentId + signature
+        ↓
+💳 Payment Modal opens
+User clicks "Pay" or "Simulate Failure"
+        ↓
+Pay → sends correct signature → POST /payment/verify → status: PAID ✅
+Fail → sends wrong signature → POST /payment/verify → status: FAILED ❌
+```
+
+---
+
+## 📁 Project Structure
+
+```
+frontend/
+├── src/
+│   ├── api/
+│   │   ├── axios.js          # Axios instance with interceptors
+│   │   ├── authApi.js        # Signup, Login
+│   │   ├── orderApi.js       # Create, get, admin orders
+│   │   ├── paymentApi.js     # Verify payment
+│   │   └── productApi.js     # Get products
+│   ├── components/
+│   │   ├── Navbar.jsx        # With cart count + active page
+│   │   ├── ProductCard.jsx   # With emoji mapping
+│   │   ├── PaymentModal.jsx  # Simulated payment gateway
+│   │   ├── ProtectedRoute.jsx
+│   │   ├── AdminRoute.jsx    # Admin only access
+│   │   └── Loader.jsx
+│   ├── context/
+│   │   └── CartContext.jsx   # Global cart state
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── Signup.jsx
+│   │   ├── Products.jsx
+│   │   ├── Cart.jsx
+│   │   ├── Orders.jsx
+│   │   └── Admin.jsx
+│   ├── App.jsx
+│   └── main.jsx
+├── vercel.json               # SPA routing fix for Vercel
+└── .env                      # Environment variables (not pushed)
+```
+
+---
+
+## ⚙️ Local Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/kishan1801/payment-practice-frontend.git
+cd payment-practice-frontend
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Create `.env` file in root
+
+```env
+VITE_API_BASE_URL=http://localhost:3000/api
+```
+
+### 4. Start the development server
+
+```bash
+npm run dev
+```
+
+App runs at `http://localhost:5173`
+
+> Make sure the backend is running locally on port 3000!
+
+---
+
+## 🔐 Environment Variables
+
+| Variable            | Description          |
+| ------------------- | -------------------- |
+| `VITE_API_BASE_URL` | Backend API base URL |
+
+---
+
+## 🔗 Backend Repository
+
+[https://github.com/kishan1801/payment-practice-backend](https://github.com/kishan1801/payment-practice-backend)
+
+---
+
+## 👨‍💻 Author
+
+**Kishan** — [github.com/kishan1801](https://github.com/kishan1801)
